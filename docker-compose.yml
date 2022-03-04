@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  web:
+    image: node:16
+    command: bash -c "npm install && npm start"
+    working_dir: /app
+    volumes:
+      - ./web:/app
+    ports:
+      - ${PORT_WEB}:3000
+    environment:
+      WDS_SOCKET_PORT: ${PORT_WEB}
