@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "ms-azuretools.vscode-docker",
+    "mongodb.mongodb-vscode",
+    "msjsdiag.vscode-react-native",
+    "juanblanco.solidity",
+  ]
+}
