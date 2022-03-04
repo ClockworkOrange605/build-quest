@@ -1,6 +1,16 @@
 version: "3.9"
 
 services:
+
+  rpc:
+    image: node:12
+    command: bash -c "npm install && npx truffle develop"
+    working_dir: /app
+    volumes:
+      - ./rpc:/app
+    ports:
+      - ${PORT_RPC}:9545
+
   web:
     image: node:16
     command: bash -c "npm install && npm start"
