@@ -11,6 +11,17 @@ services:
     ports:
       - ${PORT_RPC}:9545
 
+  api:
+    image: node:16
+    command: bash -c "npm install && npm run dev"
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    ports:
+      - ${PORT_API}:${PORT_API}
+    environment:
+      API_PORT: ${PORT_API}
+
   web:
     image: node:16
     command: bash -c "npm install && npm start"
