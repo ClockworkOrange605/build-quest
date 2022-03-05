@@ -1,6 +1,14 @@
 .card-container{
-  margin: 90px 4vw 0 4vw;
+  margin: 0px 4vw 0 4vw;
   display: flex;
   flex-wrap: wrap;
   gap: 3%;
+
+  a{
+    width: 31%;
+  }
+
+  .card:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  }
 }

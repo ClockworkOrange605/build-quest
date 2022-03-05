@@ -19,7 +19,7 @@ export function Header(props){
       <Link to='/' className='logo-a'>
         <div className='logo'>
           <img src={logo} />
-          <div className='name'>Dynamic Drops</div>
+          <div className='name title-extra-bold'>Dynamic Drops</div>
         </div>
       </Link>
       <div className='tabs'>

@@ -7,6 +7,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from "react-redux";
 import store from './Store'
 
+// Fonts
+import './assets/fonts/EudoxusSans-Bold.ttf'
+import './assets/fonts/EudoxusSans-ExtraBold.ttf'
+import './assets/fonts/EudoxusSans-ExtraLight.ttf'
+import './assets/fonts/EudoxusSans-Light.ttf'
+import './assets/fonts/EudoxusSans-Medium.ttf'
+import './assets/fonts/EudoxusSans-Regular.ttf'
 
 
 ReactDOM.render(

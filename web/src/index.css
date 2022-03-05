@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* FONTS */
+
+@font-face {
+  font-family: "EudoxusSansRegular";
+  src: local("EudoxusSansRegular"),
+    url("./assets/fonts/EudoxusSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "EudoxusSansMedium";
+  src: local("EudoxusSansMedium"),
+    url("./assets/fonts/EudoxusSans-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "EudoxusSansBold";
+  src: local("EudoxusSansBold"),
+    url("./assets/fonts/EudoxusSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "EudoxusSansLight";
+  src: local("EudoxusSansLight"),
+    url("./assets/fonts/EudoxusSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "EudoxusSansExtraBold";
+  src: local("EudoxusSansExtraBold"),
+    url("./assets/fonts/EudoxusSans-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "EudoxusSansExtraLight";
+  src: local("EudoxusSansExtraLight"),
+    url("./assets/fonts/EudoxusSans-ExtraLight.ttf") format("truetype");
+}

@@ -5,6 +5,7 @@ import { Route, BrowserRouter, Router, Routes } from 'react-router-dom';
 import { ProjectCard } from './components/project-card/project-card';
 import { Header } from './components/header/header'
 import { Collections } from './pages/collections/collections'
+import { Homepage } from "./pages/homepage/homepage";
 
 function App() {
 
@@ -36,11 +37,17 @@ function App() {
   return (
     <div className="App">
       <Header account={currentAccount} connectWallet={connectWallet}/>
+      <div className="routes">
         <Routes>
           <Route
+            exact path="/"
+            element={ <Homepage/> }
+          />
+          <Route
             path='/collections'
-            element={<Collections/> }/>
+            element={ <Collections/> }/>
         </Routes>
+      </div>
     </div>
   );
 }
