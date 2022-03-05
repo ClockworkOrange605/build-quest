@@ -1,6 +1,12 @@
 import './header.scss'
-import logo from './../../assets/drop.png'
+import logo from './../../assets/dd-logo.svg'
 import { useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 export function Header(props){
@@ -10,12 +16,15 @@ export function Header(props){
 
   return(
     <div className='header'>
-      <div className='logo'>
-        <img src={logo} />
-        <div className='name'>Dynamic Drops</div>
-      </div>
+      <Link to='/' className='logo-a'>
+        <div className='logo'>
+          <img src={logo} />
+          <div className='name'>Dynamic Drops</div>
+        </div>
+      </Link>
       <div className='tabs'>
-        <a href='www.google.com' className='docs'>Docs</a>
+        <Link to='/docs' className='link'>Docs</Link>
+        <Link to='/collections' className='link'>Collections</Link>
         <button className='create'>Create Collection</button>
         { !props.account ?
           <button className='wallet' onClick={props.connectWallet}>Connect Wallet</button>

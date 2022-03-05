@@ -12,19 +12,25 @@
   left: 0;
   z-index: 2;
 
-  .logo{
+
+  .logo-a{
     height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-
-    img{
+    text-decoration: none;
+    color: black;
+    .logo{
       height: 100%;
-    }
+      display: flex;
+      align-items: center;
+      gap: 7px;
 
-    .name{
-      font-size: 22px;
-      font-weight:800;
+      img{
+        height: 100%;
+      }
+
+      .name{
+        font-size: 22px;
+        font-weight:800;
+      }
     }
   }
 
@@ -33,25 +39,25 @@
     align-items: center;
     gap: 20px;
 
-    .docs{
-      color: #38B6FF;
+    .link{
+      color: #0047AB;
       text-decoration: none;
       font-weight: 600;
       font-size: 18px;
     }
 
     button{
-      border: 2px solid #38B6FF;
+      border: 2px solid #0047AB;
       border-radius: 6px;
       background-color: transparent;
       padding: 10px;
       font-size: 16px;
       font-weight: 600;
-      color: #38B6FF;
+      color: #0047AB;
       cursor: pointer;
 
       &.create{
-        background-color: #38B6FF;
+        background-color: #0047AB;
         color: white;
 
       }

@@ -4,7 +4,7 @@ import './components/project-card/project-card'
 import { Route, BrowserRouter, Router, Routes } from 'react-router-dom';
 import { ProjectCard } from './components/project-card/project-card';
 import { Header } from './components/header/header'
-import { Main } from './pages/main/main'
+import { Collections } from './pages/collections/collections'
 
 function App() {
 
@@ -38,8 +38,8 @@ function App() {
       <Header account={currentAccount} connectWallet={connectWallet}/>
         <Routes>
           <Route
-            path='/'
-            element={<Main/> }/>
+            path='/collections'
+            element={<Collections/> }/>
         </Routes>
     </div>
   );
