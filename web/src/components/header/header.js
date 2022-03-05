@@ -1,6 +1,5 @@
 import './header.scss'
 import logo from './../../assets/dd-logo.svg'
-import { useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,7 +10,6 @@ import {
 
 export function Header(props){
 
-  useEffect(()=>console.log(props))
 
 
   return(

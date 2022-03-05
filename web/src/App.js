@@ -12,7 +12,6 @@ function App() {
   const [currentAccount, setCurrentAccount] = useState("");
 
   const connectWallet = async () => {
-    console.log('avb')
     try{
       const { ethereum } = window;
 
