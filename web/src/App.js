@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import './App.scss';
+import './components/project-card/project-card'
+import { Route, BrowserRouter, Router, Routes } from 'react-router-dom';
+import { ProjectCard } from './components/project-card/project-card';
+import { Header } from './components/header/header'
+import { Main } from './pages/main/main'
 
 function App() {
+
+  const [currentAccount, setCurrentAccount] = useState("");
+
+  const connectWallet = async () => {
+    console.log('avb')
+    try{
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+
+      console.log("Connected", accounts[0]);
+      setCurrentAccount(accounts[0]);
+
+
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header account={currentAccount} connectWallet={connectWallet}/>
+        <Routes>
+          <Route
+            path='/'
+            element={<Main/> }/>
+        </Routes>
     </div>
   );
 }

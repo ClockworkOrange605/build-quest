@@ -1,0 +1,69 @@
+.header{
+  height: 40px;
+  width: calc(100vw - 50px);
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 22px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  .logo{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    img{
+      height: 100%;
+    }
+
+    .name{
+      font-size: 22px;
+      font-weight:800;
+    }
+  }
+
+  .tabs{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .docs{
+      color: #38B6FF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    button{
+      border: 2px solid #38B6FF;
+      border-radius: 6px;
+      background-color: transparent;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #38B6FF;
+      cursor: pointer;
+
+      &.create{
+        background-color: #38B6FF;
+        color: white;
+
+      }
+    }
+
+    .eth-address{
+      max-width: 139px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+  }
+
+}
