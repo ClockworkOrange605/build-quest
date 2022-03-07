@@ -6,30 +6,44 @@
 
   .left{
     width: 57%;
-    background-color: #0047abd5;
     margin-right: 10%;
     padding: 2%;
-    color: white;
     border-radius: 20px;
+    overflow-y: scroll;
+    max-height: 72vh;
 
     .title{
       font-size: 30px;
       font-weight: 800;
+      color: #0047abd5;
     }
 
     .text{
       margin-top: 30px;
       font-size: 18px;
-      // width: 75%;
 
       div{
         margin-top: 10px;
 
-        &.forth{
+        &.bold{
           font-weight: bold;
         }
       }
     }
+  }
+
+
+
+  .left::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+  }
+
+  .left::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: rgb(197, 197, 197);
   }
 
   .right{

@@ -21,7 +21,7 @@ export function Header(props){
         </div>
       </Link>
       <div className='tabs'>
-        <Link to='/docs' className='link'>Docs</Link>
+        <a href='https://github.com/ClockworkOrange605/build-quest/blob/main/README.md' className='link' target='_blank'>Docs</a>
         <Link to='/collections' className='link'>Collections</Link>
         <button className='create'>Create Collection</button>
         { !props.account ?
