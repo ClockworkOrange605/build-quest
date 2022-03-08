@@ -1,0 +1,1 @@
+export { verifyToken as authMiddleware } from '../controllers/auth.js'
