@@ -21,6 +21,7 @@ services:
       - ${PORT_API}:${PORT_API}
     environment:
       API_PORT: ${PORT_API}
+      MONGO_URI: mongodb://mongo:27017
 
   web:
     image: node:16
@@ -32,3 +33,10 @@ services:
       - ${PORT_WEB}:3000
     environment:
       WDS_SOCKET_PORT: ${PORT_WEB}
+
+  mongo:
+    image: mongo:4.4
+    volumes:
+      - ./storage/dbs/mongo:/data/db
+    ports:
+      - ${PORT_MONGO}:27017
