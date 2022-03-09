@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import './App.scss';
 import './components/project-card/project-card'
 import { Route, BrowserRouter, Router, Routes } from 'react-router-dom';
-import { ProjectCard } from './components/project-card/project-card';
 import { Header } from './components/header/header'
 import { Collections } from './pages/collections/collections'
 import { Homepage } from "./pages/homepage/homepage";
+import { CollectionDetail } from "./pages/collection-detail/collection-detail";
 
 function App() {
 
@@ -43,8 +43,13 @@ function App() {
             element={ <Homepage/> }
           />
           <Route
-            path='/collections'
-            element={ <Collections/> }/>
+            path="/collections"
+            element={ <Collections/> }
+          />
+          <Route
+            path="/collection/:id"
+            element={ <CollectionDetail/> }
+          />
         </Routes>
       </div>
     </div>

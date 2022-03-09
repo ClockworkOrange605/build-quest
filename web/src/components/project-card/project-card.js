@@ -9,7 +9,7 @@ import {
 
 export function ProjectCard({projectInfo}){
 
-  let linkTo='/collection?id=123'
+  let linkTo='/collection/123'
 
   return(
       <Link to={linkTo}>
