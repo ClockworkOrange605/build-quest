@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from "react-redux";
+import store from './Store'
+
+// Fonts
+import './assets/fonts/EudoxusSans-Bold.ttf'
+import './assets/fonts/EudoxusSans-ExtraBold.ttf'
+import './assets/fonts/EudoxusSans-ExtraLight.ttf'
+import './assets/fonts/EudoxusSans-Light.ttf'
+import './assets/fonts/EudoxusSans-Medium.ttf'
+import './assets/fonts/EudoxusSans-Regular.ttf'
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

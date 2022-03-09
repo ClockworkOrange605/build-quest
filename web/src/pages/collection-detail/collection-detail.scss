@@ -1,0 +1,47 @@
+.collection{
+  padding: 50px 10% 0 10%;
+  // width: 80%;
+
+  .title{
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+
+  .center{
+    height: 60vh;
+    display: flex;
+    gap: 5vw;
+    width: 100%;
+
+    .left{
+      width: 30%;
+      height: 100%;
+
+      .image{
+        margin-bottom: 25px;
+        img{
+          width: 100%;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+      }
+
+      .description{
+        font-size: 18px;
+        color: rgb(131, 131, 131);
+      }
+    }
+
+    .right{
+      background-color: #0047AB;
+      width: 70%;
+      color: white;
+      border-radius: 15px;
+      padding: 3vw;
+
+      .starts, .current-price{
+        font-size: 26px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
