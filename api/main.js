@@ -1,13 +1,17 @@
+import config from './src/configs/app.js'
+
 import express from 'express'
 
-const PORT = process.env.API_PORT || 4000
+import AuthRouter from './src/routes/auth.js'
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.send({ timestamp: Date.now() })
-})
+app.use(express.json())
 
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
+app.use('/auth', AuthRouter)
+
+app.get('/', (req, res) => res.send({ timestamp: Date.now() }))
+
+app.listen(config.port, () => {
+  console.log(`API running at http://localhost:${config.port}`)
 })
