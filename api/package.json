@@ -8,7 +8,8 @@
     "eth-sig-util": "^3.0.1",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.4.1"
+    "mongodb": "^4.4.1",
+    "web3": "^1.7.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

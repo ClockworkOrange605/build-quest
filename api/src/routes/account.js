@@ -11,7 +11,7 @@ const router = new Router()
 router.get('/:address/collections', authMiddleware, getCollections)
 router.get('/:address/collections/:id', authMiddleware, getCollection)
 router.post('/:address/collections/create', authMiddleware, createCollection)
-router.post('/:address/collection/:id/deploy', authMiddleware, deployCollection)
+router.post('/:address/collections/:id/deploy', authMiddleware, deployCollection)
 
 router.get('/:address/collections/:id/tokens', authMiddleware, getTokens)
 router.post('/:address/collections/:id/tokens/create', authMiddleware, createToken)

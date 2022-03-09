@@ -1,8 +1,5 @@
-import {
-  create,
-  findByID,
-  findByAddress
-} from '../../models/collection.js'
+import { getContactDeployTransaction } from '../../utils/contracts.js'
+import { create, update, findByID, findByAddress } from '../../models/collection.js'
 
 const createCollection =
   async (req, res, next) => {
@@ -23,14 +20,22 @@ const createCollection =
   }
 
 const deployCollection =
-  (req, res, next) => {
+  async (req, res, next) => {
     const { account } = res.locals
     const { id } = req.params
-    const { ...data } = req.body
+    const { name, symbol, ...data } = req.body
 
     try {
+      const collection = await findByID(id)
 
-      res.send({})
+      if (collection?.address === account) {
+        const transaction = getContactDeployTransaction('CRISP', [name, symbol])
+        await update(id, { contract: { source: 'CRISP', constructor: [name, symbol] } })
+
+        res.send({ tx: transaction })
+      }
+      else
+        res.status(403).send({ error: '403 Forbidden' })
     }
     catch (err) {
       next(err)

@@ -14,6 +14,17 @@ const create =
     return query.insertedId.toString()
   }
 
+const update =
+  async (id, data) => {
+    await client.connect()
+    const query = await collection.updateOne(
+      { _id: ObjectId(id) },
+      { $set: { ...data } }
+    )
+    await client.close()
+    return query.acknowledged
+  }
+
 const findByID =
   async (id) => {
     await client.connect()
@@ -30,4 +41,4 @@ const findByAddress =
     return collections
   }
 
-export { create, findByID, findByAddress }
+export { create, update, findByID, findByAddress }
