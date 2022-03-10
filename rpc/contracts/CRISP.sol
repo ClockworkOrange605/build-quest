@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.11;
+pragma solidity 0.8.12;
 
 import {ERC721} from "./ERC721.sol";
-import {PRBMathSD59x18} from "./PRBMathSD59x18.sol";
+import {PRBMathSD59x18} from "./libs/PRBMathSD59x18.sol";
 
 ///@notice CRISP -- a mechanism to sell NFTs continuously at a targeted rate over time
-abstract contract CRISP is ERC721 {
+contract CRISP is ERC721 {
     using PRBMathSD59x18 for int256;
 
     /// ---------------------------
@@ -136,13 +136,17 @@ abstract contract CRISP is ERC721 {
     }
 
     ///@notice Pay current price and mint new NFT
-    function mint() public payable {
+    function mint(string memory uri) public payable {
         int256 price = getQuote();
         uint256 priceScaled = uint256(price.toInt());
         if (msg.value < priceScaled) {
             revert InsufficientPayment();
         }
-        _mint(msg.sender, curTokenId++);
+
+        uint256 id = curTokenId++;
+
+        _mint(msg.sender, id);
+        _setTokenURI(id, uri);
 
         //update state
         nextPurchaseStartingEMS = getCurrentEMS() + PRBMathSD59x18.fromInt(1);
