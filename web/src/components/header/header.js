@@ -23,7 +23,7 @@ export function Header(props){
       <div className='tabs'>
         <a href='https://github.com/ClockworkOrange605/build-quest/blob/main/README.md' className='link' target='_blank'>Docs</a>
         <Link to='/collections' className='link'>Collections</Link>
-        <button className='create'>Create Collection</button>
+        <Link to='/create-collection' className='create'>Create Collection</Link>
         { !props.account ?
           <button className='wallet' onClick={props.connectWallet}>Connect Wallet</button>
           : <div className='eth-address'>{props.account}</div>}

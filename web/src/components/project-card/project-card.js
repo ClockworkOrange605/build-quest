@@ -22,7 +22,7 @@ export function ProjectCard({projectInfo}){
       </div>
       <div className='title'>Project Name</div>
       <div className='creator'>
-        <a href='https://stackoverflow.com/questions/50350085/how-to-make-a-hyperlink-external-in-react'><span className='by'>by</span> Dynamic Drops</a>
+        <div><span className='by'>by</span> Dynamic Drops</div>
       </div>
       <div className='description'>Dynamic Pricing Dapp for NFT Drops and other cool stuff!</div>
     </div>
