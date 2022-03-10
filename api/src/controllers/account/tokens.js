@@ -1,19 +1,25 @@
 import { findByID as findCollection } from '../../models/collection.js'
 import { create, findByCollectionID } from '../../models/token.js'
+import { uploadFile, uploadJSON } from '../../utils/ipfs.js'
 
 const createToken =
   async (req, res, next) => {
     const { account } = res.locals
     const { id } = req.params
-    const { ...data } = req.body
+    const { image, ...data } = req.body
 
     try {
       const collection = await findCollection(id)
 
       if (collection?.address === account) {
+        const imageHash = await uploadFile('/storage/app/drops.png')
+        const metadata = { image: `ipfs://${imageHash}`, ...data }
+
+        const metadataHash = await uploadJSON(metadata)
         const tokenId = await create({
           collection_id: id,
-          ...data
+          ipfs_hash: metadataHash,
+          metadata
         })
 
         res.send({ id: tokenId })
