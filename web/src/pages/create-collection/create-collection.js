@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CollectionDetails from './steps/collection-details'
+import CollectionMetadata from './steps/collection-metadata';
 
 export class CreateCollection extends Component {
 
@@ -53,7 +54,11 @@ export class CreateCollection extends Component {
         )
       case 2:
         return(
-          <h1>2</h1>
+          <CollectionMetadata
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
         )
       case 3:
         return(

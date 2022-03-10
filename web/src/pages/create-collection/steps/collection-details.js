@@ -33,7 +33,6 @@ export class CollectionDetails extends Component {
           onChange={handleChange('logo')}
           defaultValue={values.logo}
           type='file'
-          name='logo'
         />
         <br/>
         <TextField
