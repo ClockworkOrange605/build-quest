@@ -1,0 +1,34 @@
+.row{
+  margin: 20% 0;
+}
+
+.metadata{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.btns{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 45px;
+  right: 5%;
+
+  Button{
+    width: 45%;
+  }
+}
+
+.card-step{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a{
+    width: 70%;
+
+  }
+}

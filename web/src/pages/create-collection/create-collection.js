@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CollectionDetails from './steps/collection-details'
 import CollectionMetadata from './steps/collection-metadata';
+import SaleDetails from './steps/sale-details';
 
 export class CreateCollection extends Component {
 
@@ -30,12 +31,16 @@ export class CreateCollection extends Component {
   prevStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step - 1
+      step: step - 1,
+      logo: ''
     });
   }
 
   handleChange = input => e => {
     this.setState({[input]: e.target.value})
+  }
+
+  submit = () => {
   }
 
   render() {
@@ -55,6 +60,7 @@ export class CreateCollection extends Component {
       case 2:
         return(
           <CollectionMetadata
+            prevStep={this.prevStep}
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
@@ -62,7 +68,12 @@ export class CreateCollection extends Component {
         )
       case 3:
         return(
-          <h1>3</h1>
+          <SaleDetails
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            values={values}
+            submit={this.submit}
+          />
         )
     }
   }
