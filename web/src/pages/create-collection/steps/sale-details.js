@@ -26,6 +26,7 @@ export class SaleDetails extends Component {
             <div className="bg">
                 <div className="form">
                     <div className="img-left card-step">
+                    <div className="step-index">3/3</div>
                         <ProjectCard projectInfo={projectInfo} />
                     </div>
                     <div className="right">
@@ -39,7 +40,7 @@ export class SaleDetails extends Component {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            ether
+                                            Ξ
                                         </InputAdornment>
                                     ),
                                 }}
@@ -68,13 +69,12 @@ export class SaleDetails extends Component {
                               ),
                           }}
                         />
-                        <br />
                         <div className="btns">
                             <Button variant="outlined" onClick={this.back}>
                                 Back
                             </Button>
                             <Button variant="contained" onClick={this.submit}>
-                                Submit
+                                Deploy Collection
                             </Button>
                         </div>
                     </div>

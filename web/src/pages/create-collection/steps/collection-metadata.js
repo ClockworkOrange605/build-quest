@@ -25,6 +25,7 @@ export class CollectionMetadata extends Component {
             <div className="bg">
                 <div className="form">
                     <div className="img-left card-step">
+                    <div className="step-index">2/3</div>
                         <ProjectCard projectInfo={projectInfo} />
                     </div>
                     <div className="right">

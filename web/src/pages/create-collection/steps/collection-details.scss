@@ -1,9 +1,9 @@
-.bg{
-  width: 100vw;
-  height: calc(100vh - 90px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.bg {
+    width: 100vw;
+    height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form {
@@ -16,18 +16,21 @@
     height: 85%;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 
-
-
-
-
-
-
-
-
     .img-left {
         position: absolute;
         height: 100%;
         width: 40%;
+
+        .step-index{
+          position: absolute;
+          top: 30px;
+          left: 30px;
+          font-weight: 700;
+
+          &.white{
+            color: #FFF;
+          }
+        }
 
         .form-img {
             border-radius: 30px 0 0 30px;
@@ -42,53 +45,61 @@
         padding-inline: 5%;
         width: 100%;
 
-        .first, .forth{
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          margin-bottom: 5%;
+        .first,
+        .forth {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 4%;
 
-          .name{
-            width: 70%;
-          }
+            .name {
+                width: 70%;
+            }
 
-          .symbol{
-            width: 20%;
-          }
+            .symbol {
+                width: 26%;
+            }
 
-          .forth-field{
-            width: 48%;
-          }
+            .forth-field {
+                width: 48%;
+            }
         }
 
-        .second{
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          margin-bottom: 2%;
-          margin-top: -2%;
+        .second {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 4%;
+
+            .input-field{
+              width: 100%;
+            }
         }
 
-        .description{
-          width: 100%;
-          margin-bottom: 5%;
+        .description {
+            width: 100%;
+            margin-bottom: 4%;
         }
 
-        .website{
-          width: 100%;
-          margin-bottom: 7%;
+        .website {
+            width: 100%;
+            margin-bottom: 7%;
         }
 
-        .btn-container{
-          width: 50%;
-          text-align: end;
-          position: absolute;
-          bottom: 45px;
-          right: 5%;
+        .btn-container {
+            width: 50%;
+            text-align: end;
+            position: absolute;
+            bottom: 45px;
+            right: 5%;
 
-          .next{
-            width: 45%;
-          }
+            .next {
+                width: 45%;
+            }
         }
     }
+}
+
+.icon{
+    margin-right:10px;
 }

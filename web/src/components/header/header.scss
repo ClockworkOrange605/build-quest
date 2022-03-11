@@ -55,12 +55,24 @@
       font-weight: 600;
       color: #0047AB;
       cursor: pointer;
+    }
 
-      &.create{
-        background-color: #0047AB;
-        color: white;
+    .create{
+      border: 2px solid #0047AB;
+      border-radius: 6px;
+      background-color: transparent;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: #0047AB;
+      color: white;
+      cursor: pointer;
+    }
 
-      }
+    .create:hover{
+      background-color: #2e69bb;
+      border-color: #2e69bb;
+
     }
 
     .eth-address{
