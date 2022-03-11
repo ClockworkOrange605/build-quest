@@ -18,13 +18,13 @@ export function ProjectCard({projectInfo}){
       <img src='https://lh3.googleusercontent.com/YhFNM3GpVLCmhT_aVdzEcDfJSjaoqV8-gwrG56ukc9zJqIHqEuw05o_jwf-_cZ8yEAa645GJTtKN7XovzEUNisk_8wuK6X3ae23B3Q=h200' className='image'></img>
       </div>
       <div className='profile-img'>
-        <img src={image} className='image'></img>
+        <img src={ projectInfo?.logo || image} className='image'></img>
       </div>
-      <div className='title'>Project Name</div>
+      <div className='title'>{ projectInfo?.name || "Project Name"}</div>
       <div className='creator'>
-        <div><span className='by'>by</span> Dynamic Drops</div>
+        <div><span className='by'>by</span> { projectInfo?.creator || "Dynamic Drops"}</div>
       </div>
-      <div className='description'>Dynamic Pricing Dapp for NFT Drops and other cool stuff!</div>
+      <div className='description'>{ projectInfo?.description || "Dynamic Pricing Dapp for NFT Drops and other cool stuff!"}</div>
     </div>
       </Link>
   )
