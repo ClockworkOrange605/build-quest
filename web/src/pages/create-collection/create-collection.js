@@ -22,8 +22,6 @@ export class CreateCollection extends Component {
         targetTimeBetweenMints: 0,
     };
 
-
-
     txHashMethod = async () => {
         const { ethereum } = window;
         try {

@@ -1,9 +1,13 @@
 import './homepage.scss'
 import graph from './../../assets/graph.png'
 import { ProjectCard } from '../../components/project-card/project-card'
+import { useSelector } from 'react-redux';
 
 
 export function Homepage(){
+
+  const projectInfo = useSelector((state) => state.projectsInfo);
+
   return(
     <div className='homepage'>
       <div className='left'>
@@ -47,7 +51,7 @@ export function Homepage(){
         </div>
         <div className='featured'>
           <div className='title title-medium'>Featured Collection</div>
-          <ProjectCard className='card'/>
+          <ProjectCard className='card' projectInfo={projectInfo[7]}/>
         </div>
       </div>
 

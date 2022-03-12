@@ -1,23 +1,30 @@
 import './collection-detail.scss'
 import image from './../../assets/collection-img.png'
+import { useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
+
 
 export function CollectionDetail(){
-
-  let miningStarts = '01/03/2022';
   let currentPrice = 0.01;
+
+  const { id } = useParams();
+  const info = useSelector((state) => state.projectsInfo[id])
+  console.log(info)
+
   return (
     <div className='collection'>
-      <div className='title title-extra-bold'>Collection A</div>
+      <div className='title title-extra-bold'>{info.name}</div>
       <div className='center'>
         <div className='left'>
           <div className='image'>
-            <img src={image}/>
+            <img src={info.logo}/>
           </div>
-          <div className='description'>A community-driven collectibles project featuring art by Amber Park and Mason Rothschild. Across the 10,000 Weirdos in our collection, no two are the same - much like humankind itself. Consider every Weirdo minted representative of that holder’s inner Weirdo, a cosmic embodiment of our one-of-a-kind oddities.</div>
+          <div className='description'>{info.description}</div>
         </div>
         <div className='right'>
-          <div className='starts title-regular'>Mining starts: {miningStarts}</div>
           <div className='current-price title-regular'>Current price: {currentPrice} ETH</div>
+          <button className='mint-btn'>MINT NFT</button>
+          <img src="https://cdn.discordapp.com/attachments/948761722657849364/952208827699314748/Screen_Shot_2022-03-12_at_22.05.48.png" className='graph'/>
         </div>
       </div>
       <div className='bottom'></div>
