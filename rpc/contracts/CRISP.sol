@@ -95,7 +95,7 @@ contract CRISP is ERC721 {
     }
 
     ///@notice get quote for purchasing in current block, decaying price as needed. Returns 59.18-decimal fixed-point
-    function getQuote() public view returns (int256 result) {
+    function getQuote() internal view returns (int256 result) {
         if (block.number <= priceDecayStartBlock) {
             result = nextPurchaseStartingPrice;
         }
@@ -106,6 +106,12 @@ contract CRISP is ERC721 {
             int256 decay = (-decayInterval).div(priceHalflife).exp();
             result = nextPurchaseStartingPrice.mul(decay);
         }
+    }
+
+    ///@notice get quote for purchasing in current block, decaying price as needed. Returns uint256
+    function getPrice() public view returns (uint256 result) {
+        int256 price = getQuote(); // 59.18-decimal fixed-point
+        result = uint256(price.toInt());
     }
 
     ///@notice Get starting price for next purchase before time decay. Returns 59.18-decimal fixed-point
