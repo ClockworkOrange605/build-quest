@@ -1,51 +1,38 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react"
+import { Routes, Route } from "react-router-dom"
+
+import MetaMaskProvider from "./providers/MetaMaskProvider"
+
+import { Header } from "./components/header/header"
+
+import { Homepage } from "./pages/homepage/homepage"
+import { Collections } from "./pages/collections/collections"
+import { CollectionDetail } from "./pages/collection-detail/collection-detail"
+import { CreateCollection } from "./pages/create-collection/create-collection"
+
 import "./App.scss";
-import "./components/project-card/project-card";
-import { Route, BrowserRouter, Router, Routes } from "react-router-dom";
-import { Header } from "./components/header/header";
-import { Collections } from "./pages/collections/collections";
-import { Homepage } from "./pages/homepage/homepage";
-import { CollectionDetail } from "./pages/collection-detail/collection-detail";
-import { CreateCollection } from "./pages/create-collection/create-collection";
+// import "./components/project-card/project-card";
 
-function App() {
-    const [currentAccount, setCurrentAccount] = useState("");
+const App = () => {
+  return (
+    <MetaMaskProvider>
+      <div className="App">
+        <Header />
 
-    const connectWallet = async () => {
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                alert("Get MetaMask!");
-                return;
-            }
-
-            const accounts = await ethereum.request({
-                method: "eth_requestAccounts",
-            });
-
-            setCurrentAccount(accounts[0]);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    return (
-        <div className="App">
-            <Header account={currentAccount} connectWallet={connectWallet} />
-            <div className="routes">
-                <Routes>
-                    <Route exact path="/" element={<Homepage />} />
-                    <Route path="/collections" element={<Collections />} />
-                    <Route
-                        path="/collection/:id"
-                        element={<CollectionDetail />}
-                    />
-                    <Route path="/create-collection" element={<CreateCollection />} />
-                </Routes>
-            </div>
+        <div className="routes">
+          <Routes>
+            <Route exact path="/" element={<Homepage />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route
+              path="/collection/:id"
+              element={<CollectionDetail />}
+            />
+            <Route path="/create-collection" element={<CreateCollection />} />
+          </Routes>
         </div>
-    );
+      </div>
+    </MetaMaskProvider>
+  )
 }
 
-export default App;
+export default App

@@ -1,18 +1,15 @@
+import { Link } from "react-router-dom";
+
+import { useMetaMask } from "../../providers/MetaMaskProvider";
+
+//#38B6FF
 import './header.scss'
 import logo from './../../assets/dd-logo.svg'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
+const Header = () => {
+  const { status, account, connect } = useMetaMask()
 
-export function Header(props){
-
-
-
-  return(
+  return (
     <div className='header'>
       <Link to='/' className='logo-a'>
         <div className='logo'>
@@ -20,16 +17,19 @@ export function Header(props){
           <div className='name title-extra-bold'>Dynamic Drops</div>
         </div>
       </Link>
+
       <div className='tabs'>
         <a href='https://github.com/ClockworkOrange605/build-quest/blob/main/README.md' className='link' target='_blank'>Docs</a>
         <Link to='/collections' className='link'>Collections</Link>
         <Link to='/create-collection' className='create'>Create Collection</Link>
-        { !props.account ?
-          <button className='wallet' onClick={props.connectWallet}>Connect Wallet</button>
-          : <div className='eth-address'>{props.account}</div>}
+        {!account ?
+          <button className='wallet' onClick={connect}>Connect Wallet</button> :
+          <div className='eth-address'>{account}</div>
+        }
       </div>
     </div>
   )
 }
 
-//#38B6FF
+export default Header
+export { Header }
