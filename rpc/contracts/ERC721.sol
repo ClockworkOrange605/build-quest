@@ -35,7 +35,24 @@ abstract contract ERC721 {
 
     string public symbol;
 
-    function tokenURI(uint256 id) public view virtual returns (string memory);
+    mapping(uint256 => string) private _tokenURIs;
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        returns (string memory)
+    {
+        string memory _tokenURI = _tokenURIs[tokenId];
+        return _tokenURI;
+    }
+
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI)
+        internal
+        virtual
+    {
+        _tokenURIs[tokenId] = _tokenURI;
+    }
 
     /*///////////////////////////////////////////////////////////////
                             ERC721 STORAGE

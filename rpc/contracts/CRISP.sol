@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.11;
+pragma solidity 0.8.12;
 
 import {ERC721} from "./ERC721.sol";
-import {PRBMathSD59x18} from "./PRBMathSD59x18.sol";
+import {PRBMathSD59x18} from "./libs/PRBMathSD59x18.sol";
 
 ///@notice CRISP -- a mechanism to sell NFTs continuously at a targeted rate over time
-abstract contract CRISP is ERC721 {
+contract CRISP is ERC721 {
     using PRBMathSD59x18 for int256;
 
     /// ---------------------------
@@ -63,20 +63,25 @@ abstract contract CRISP is ERC721 {
         lastPurchaseBlock = block.number;
         priceDecayStartBlock = block.number;
 
-        saleHalflife = _saleHalflife;
-        priceSpeed = _priceSpeed;
-        priceHalflife = _priceHalflife;
+        saleHalflife = PRBMathSD59x18.fromInt(_saleHalflife);
+        priceSpeed = PRBMathSD59x18.fromInt(_priceSpeed);
+        priceHalflife = PRBMathSD59x18.fromInt(_priceHalflife);
 
         //calculate target EMS from target blocks per sale
         targetEMS = PRBMathSD59x18.fromInt(1).div(
             PRBMathSD59x18.fromInt(1) -
                 PRBMathSD59x18.fromInt(2).pow(
-                    -_targetBlocksPerSale.div(saleHalflife)
+                    -PRBMathSD59x18.fromInt(_targetBlocksPerSale).div(
+                        saleHalflife
+                    )
                 )
         );
+
         nextPurchaseStartingEMS = targetEMS;
 
-        nextPurchaseStartingPrice = _startingPrice;
+        nextPurchaseStartingPrice = PRBMathSD59x18.fromInt(
+            int256(_startingPrice)
+        );
     }
 
     ///@notice get current EMS based on block number. Returns 59.18-decimal fixed-point
@@ -90,7 +95,7 @@ abstract contract CRISP is ERC721 {
     }
 
     ///@notice get quote for purchasing in current block, decaying price as needed. Returns 59.18-decimal fixed-point
-    function getQuote() public view returns (int256 result) {
+    function getQuote() internal view returns (int256 result) {
         if (block.number <= priceDecayStartBlock) {
             result = nextPurchaseStartingPrice;
         }
@@ -101,6 +106,12 @@ abstract contract CRISP is ERC721 {
             int256 decay = (-decayInterval).div(priceHalflife).exp();
             result = nextPurchaseStartingPrice.mul(decay);
         }
+    }
+
+    ///@notice get quote for purchasing in current block, decaying price as needed. Returns uint256
+    function getPrice() public view returns (uint256 result) {
+        int256 price = getQuote(); // 59.18-decimal fixed-point
+        result = uint256(price.toInt());
     }
 
     ///@notice Get starting price for next purchase before time decay. Returns 59.18-decimal fixed-point
@@ -136,13 +147,17 @@ abstract contract CRISP is ERC721 {
     }
 
     ///@notice Pay current price and mint new NFT
-    function mint() public payable {
+    function mint(string memory uri) public payable {
         int256 price = getQuote();
         uint256 priceScaled = uint256(price.toInt());
         if (msg.value < priceScaled) {
             revert InsufficientPayment();
         }
-        _mint(msg.sender, curTokenId++);
+
+        uint256 id = curTokenId++;
+
+        _mint(msg.sender, id);
+        _setTokenURI(id, uri);
 
         //update state
         nextPurchaseStartingEMS = getCurrentEMS() + PRBMathSD59x18.fromInt(1);
