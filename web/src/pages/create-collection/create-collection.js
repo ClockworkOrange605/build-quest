@@ -1,109 +1,124 @@
-import React, { Component } from "react";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import CollectionDetails from "./steps/collection-details";
-import CollectionMetadata from "./steps/collection-metadata";
-import SaleDetails from "./steps/sale-details";
+import { useAuth } from "../../providers/AuthProvider"
+import { useMetaMask } from "../../providers/MetaMaskProvider"
 
-import { txData } from "./txData";
+import CollectionDetails from "./steps/collection-details"
+import CollectionMetadata from "./steps/collection-metadata"
+import SaleDetails from "./steps/sale-details"
 
-export class CreateCollection extends Component {
-  state = {
-    step: 1,
-    data: {
-      targetBlocksPerSale: 0
-    }
+const CreateCollection = () => {
+  const navigate = useNavigate();
+  const { account: address } = useAuth()
+  const { account, rpc } = useMetaMask()
 
-    // logo: "",
-    // header: "",
-    // name: "",
-    // symbol: "",
-    // description: "",
-    // twitter: "",
-    // discord: "",
-    // website: "",
+  const [currentStep, setCurrentStep] = useState(1)
 
-    // metadata: "",
-    // numberOfNFTs: 0,
+  // const [collectionId, setCollectionId] = useState()
+  const [collectionData, setCollectionData] = useState({})
 
-    // startingPrice: 0,
-    // saleStartDate: "",
-    // targetTimeBetweenMints: 0,
+  const saveCollection = async () => {
+    const token = sessionStorage.getItem(address)
+
+    const response = await fetch(`/account/${address}/collections/create`, {
+      headers: { 'Content-type': 'application/json', 'x-auth-token': token },
+      method: 'POST',
+      body: JSON.stringify(collectionData)
+    })
+
+    const { id } = await response.json()
+    // setCollectionId(id)
+    return id
   }
 
-  deployContract = async () => {
-    const { ethereum } = window
+  const deployCollection = async (collectionId) => {
     try {
-      const txHash = await ethereum.request({
+      const token = sessionStorage.getItem(address)
+      const response = await fetch(
+        `/account/${address}/collections/${collectionId}/deploy`,
+        {
+          headers: { 'Content-type': 'application/json', 'x-auth-token': token },
+          method: 'POST',
+        }
+      )
+      const { tx: txData } = await response.json()
+
+      const txHash = await rpc.request({
         method: "eth_sendTransaction",
         params: [
           {
-            from: ethereum.selectedAddress,
+            from: account,
             data: txData,
           },
-        ],
+        ]
       })
 
-      console.log(txHash)
+      return txHash
 
     } catch (error) {
       console.log(error)
     }
   }
 
-  nextStep = () =>
-    this.setState({
-      step: this.state.step + 1
+  const updateCollection = async (txHash) => {
+    // update Collection Tx
+  }
+
+  const nextStep = () =>
+    setCurrentStep(currentStep + 1)
+
+  const prevStep = () =>
+    setCurrentStep(currentStep - 1)
+
+  const handleChange = (input) => (e) =>
+    setCollectionData({
+      ...collectionData,
+      [input]: e.target.value,
     })
 
-  prevStep = () =>
-    this.setState({
-      step: this.state.step - 1,
-      metadata: null
-    })
+  const submit = async () => {
+    const id = await saveCollection()
+    const tx = await deployCollection(id)
+    await updateCollection(tx)
 
-  handleChange = (input) => (e) =>
-    this.setState({
-      data: {
-        ...this.state.data,
-        [input]: e.target.value
-      }
-    })
+    navigate(`/collection/${id}`)
+  }
 
-  // submit = () =>
-  //   this.deployContract()
-
-  render() {
-    switch (this.state.step) {
+  const renderSwitch = (step) => {
+    switch (step) {
       case 1:
         return (
           <CollectionDetails
-            values={this.state.data}
-            handleChange={this.handleChange}
-            nextStep={this.nextStep}
+            values={collectionData}
+            handleChange={handleChange}
+            nextStep={nextStep}
           />
         )
 
       case 2:
         return (
           <CollectionMetadata
-            values={this.state.data}
-            handleChange={this.handleChange}
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
+            values={collectionData}
+            handleChange={handleChange}
+            nextStep={nextStep}
+            prevStep={prevStep}
           />
         )
 
       case 3:
         return (
           <SaleDetails
-            values={this.state.data}
-            handleChange={this.handleChange}
-            nextStep={this.deployContract}
-            prevStep={this.prevStep}
+            values={collectionData}
+            handleChange={handleChange}
+            nextStep={submit}
+            prevStep={prevStep}
           />
         )
     }
   }
+
+  return (<div>{renderSwitch(currentStep)}</div>)
 }
 
 export default CreateCollection

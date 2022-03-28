@@ -31,7 +31,7 @@ export class CollectionMetadata extends Component {
             <div className="row metadata">
               <h3>Upload Metadata:</h3>
               <input
-                onChange={handleChange("metadata")}
+                // onChange={handleChange("metadata")}
                 defaultValue={values.metadata}
                 type="file"
               />

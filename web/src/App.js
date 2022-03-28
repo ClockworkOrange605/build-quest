@@ -9,7 +9,7 @@ import { Header } from "./components/header/header"
 import { Homepage } from "./pages/homepage/homepage"
 import { Collections } from "./pages/collections/collections"
 import { CollectionDetail } from "./pages/collection-detail/collection-detail"
-import { CreateCollection } from "./pages/create-collection/create-collection"
+import CreateCollection from "./pages/create-collection/create-collection"
 
 import "./App.scss";
 // import "./components/project-card/project-card";
