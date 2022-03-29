@@ -19,11 +19,12 @@ services:
       - ./api:/app
       - ./storage:/storage
     ports:
-      - ${PORT_API}:${PORT_API}
+      - ${PORT_API}:4000
     environment:
       API_PORT: ${PORT_API}
       RPC_URI: http://rpc:9545
       MONGO_URI: mongodb://mongo:27017
+      PINIATA_JWT: ${PINIATA_JWT}
 
   web:
     image: node:16

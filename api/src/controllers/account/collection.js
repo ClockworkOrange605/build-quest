@@ -1,3 +1,5 @@
+import { web3 } from '../../rpc.js'
+
 import { getContactDeployTransaction } from '../../utils/contracts.js'
 import { create, update, findByID, findByAddress } from '../../models/collection.js'
 
@@ -23,14 +25,16 @@ const deployCollection =
   async (req, res, next) => {
     const { account } = res.locals
     const { id } = req.params
-    const { name, symbol, ...data } = req.body
+    const { name, symbol, targetTimeBetweenMints: n, startingPrice: price } = req.body
 
     try {
       const collection = await findByID(id)
 
       if (collection?.address === account) {
-        const transaction = getContactDeployTransaction('CRISP', [name, symbol])
-        await update(id, { contract: { source: 'CRISP', constructor: [name, symbol] } })
+        // console.log(web3.utils.toWei(price, "ether"))
+        // console.log(name, symbol, n*n, price)
+        const transaction = getContactDeployTransaction('CRISP', [name, symbol, n, n * n, 1, n * n, web3.utils.toWei(price, "ether")])
+        await update(id, { contract: { source: 'CRISP', constructor: [name, symbol, n, price] } })
 
         res.send({ tx: transaction })
       }
