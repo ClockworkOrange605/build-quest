@@ -27,7 +27,10 @@ const App = () => {
               <Route path="/collections" element={<Collections />} />
               <Route
                 path="/collection/:id"
-                element={<CollectionDetail />}
+                element={
+                  <RequireAuth>
+                    <CollectionDetail />
+                  </RequireAuth>}
               />
               <Route path="/create-collection"
                 element={
@@ -46,7 +49,7 @@ const App = () => {
 
 const RequireAuth = ({ children }) => {
   const { account: address, connect, rpc: ethereum } = useMetaMask()
-  let { account, check, auth, setConnecting, setAuthorizing } = useAuth()
+  const { account, check, auth, setConnecting, setAuthorizing } = useAuth()
 
   useEffect(() => {
     async function authorize() {

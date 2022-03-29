@@ -33,36 +33,38 @@ const CreateCollection = () => {
   }
 
   const deployCollection = async (collectionId) => {
-    try {
-      const token = sessionStorage.getItem(address)
-      const response = await fetch(
-        `/account/${address}/collections/${collectionId}/deploy`,
+    const token = sessionStorage.getItem(address)
+    const response = await fetch(
+      `/account/${address}/collections/${collectionId}/deploy`,
+      {
+        headers: { 'Content-type': 'application/json', 'x-auth-token': token },
+        method: 'POST',
+        body: JSON.stringify({
+          name: collectionData.name,
+          symbol: collectionData.symbol,
+          targetTimeBetweenMints: collectionData.targetBlocksPerSale,
+          startingPrice: collectionData.startingPrice
+        })
+      }
+    )
+    const { tx: txData } = await response.json()
+
+    const txHash = await rpc.request({
+      method: "eth_sendTransaction",
+      params: [
         {
-          headers: { 'Content-type': 'application/json', 'x-auth-token': token },
-          method: 'POST',
-        }
-      )
-      const { tx: txData } = await response.json()
+          from: account,
+          data: txData,
+        },
+      ]
+    })
 
-      const txHash = await rpc.request({
-        method: "eth_sendTransaction",
-        params: [
-          {
-            from: account,
-            data: txData,
-          },
-        ]
-      })
-
-      return txHash
-
-    } catch (error) {
-      console.log(error)
-    }
+    return txHash
   }
 
   const updateCollection = async (txHash) => {
     // update Collection Tx
+    console.log(txHash)
   }
 
   const nextStep = () =>
