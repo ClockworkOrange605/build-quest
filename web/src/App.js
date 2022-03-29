@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import MetaMaskProvider, { useMetaMask } from "./providers/MetaMaskProvider"
@@ -12,7 +12,6 @@ import { CollectionDetail } from "./pages/collection-detail/collection-detail"
 import CreateCollection from "./pages/create-collection/create-collection"
 
 import "./App.scss";
-// import "./components/project-card/project-card";
 
 const App = () => {
   return (
@@ -23,21 +22,21 @@ const App = () => {
 
           <div className="routes">
             <Routes>
-              <Route exact path="/" element={<Homepage />} />
-              <Route path="/collections" element={<Collections />} />
+              <Route
+                exact path="/"
+                element={<Homepage />}
+              />
+              <Route
+                path="/collections"
+                element={<Collections />}
+              />
               <Route
                 path="/collection/:id"
-                element={
-                  <RequireAuth>
-                    <CollectionDetail />
-                  </RequireAuth>}
+                element={<RequireAuth><CollectionDetail /></RequireAuth>}
               />
-              <Route path="/create-collection"
-                element={
-                  <RequireAuth>
-                    <CreateCollection />
-                  </RequireAuth>
-                }
+              <Route
+                path="/create-collection"
+                element={<RequireAuth><CreateCollection /></RequireAuth>}
               />
             </Routes>
           </div>
