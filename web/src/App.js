@@ -1,25 +1,85 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react"
+import { Routes, Route } from "react-router-dom"
 
-function App() {
+import MetaMaskProvider, { useMetaMask } from "./providers/MetaMaskProvider"
+import AuthProvider, { useAuth } from "./providers/AuthProvider"
+
+import Header from "./components/header/header"
+
+import { Homepage } from "./pages/homepage/homepage"
+import { Collections } from "./pages/collections/collections"
+import { CollectionDetail } from "./pages/collection-detail/collection-detail"
+import CreateCollection from "./pages/create-collection/create-collection"
+
+import "./App.scss";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <MetaMaskProvider>
+      <AuthProvider>
+        <div className="App">
+          <Header />
+
+          <div className="routes">
+            <Routes>
+              <Route
+                exact path="/"
+                element={<Homepage />}
+              />
+              <Route
+                path="/collections"
+                element={<Collections />}
+              />
+              <Route
+                path="/collection/:id"
+                element={<RequireAuth><CollectionDetail /></RequireAuth>}
+              />
+              <Route
+                path="/create-collection"
+                element={<RequireAuth><CreateCollection /></RequireAuth>}
+              />
+            </Routes>
+          </div>
+        </div>
+      </AuthProvider>
+    </MetaMaskProvider>
+  )
 }
 
-export default App;
+const RequireAuth = ({ children }) => {
+  const { address, ethereum, connect } = useMetaMask()
+  const { account, check, auth, setConnecting, setAuthorizing } = useAuth()
+
+  useEffect(() => {
+    async function authorize() {
+      if (!address && ethereum) {
+        setConnecting(true)
+        await connect()
+        setConnecting(false)
+      }
+
+      if (address) {
+        setConnecting(false)
+      }
+
+      if (address && !account)
+        if (!await check(address)) {
+          setAuthorizing(true)
+
+          const signature = await ethereum.request({
+            method: 'personal_sign', from: address,
+            params: [`${address}@drops`, address]
+          })
+          await auth(address, signature)
+
+          setAuthorizing(false)
+        }
+    }
+
+    authorize()
+  }, [ethereum, address, account])
+
+  return account ? children : <p></p>
+}
+
+export default App
