@@ -4,56 +4,48 @@ const MetaMaskContext = createContext({})
 
 function MetaMaskProvider({ children }) {
   const [status, setStatus] = useState('initializing')
-  const [account, setAccount] = useState()
+  const [ethereum, setRpc] = useState()
+  const [address, setAddress] = useState()
 
-  const [rpc, setRpc] = useState(null)
-
-  useEffect(async () => {
-    const { ethereum } = window
-
-    if (ethereum && ethereum.isMetaMask) {
-      setStatus('connecting')
-
-      // console.log(ethereum._state.initialized)
-      check(ethereum)
-
-      setRpc(ethereum)
-    } else {
+  useEffect(() => {
+    if (window.ethereum && window.ethereum.isMetaMask)
+      setRpc(window.ethereum)
+    else
       setStatus('unavailable')
-    }
-  }, [window.ethereum])
+  }, [])
 
-  const check = async (rpc) => {
-    console.log(rpc.selectedAddress)
-    if (rpc.selectedAddress) {
-      setAccount(rpc.selectedAddress)
+  useEffect(() => {
+    ethereum && check()
+    //TODO: events processing
+  }, [ethereum])
+
+  async function check() {
+    const accounts = await ethereum.request({
+      method: "eth_accounts"
+    })
+
+    if (accounts.length) {
+      setAddress(accounts[0])
       setStatus('connected')
     } else {
       setStatus('notConnected')
     }
   }
 
-  const connect = async () => {
+  async function connect() {
     setStatus('connecting')
-    await rpc.request({ method: "eth_requestAccounts" })
-    setAccount(rpc.selectedAddress)
+    await ethereum.request({ method: "eth_requestAccounts" })
+    setAddress(ethereum.selectedAddress)
     setStatus('connected')
   }
 
-  const context = useMemo(
-    () => ({ status, account, rpc, connect }),
-    [status, account, rpc]
-  )
+  const context = useMemo(() => ({
+    status, address, ethereum, connect
+  }), [status, address, ethereum])
 
   return (
     <MetaMaskContext.Provider value={context}>
       {children}
-      <div className="Overlay" style={{
-        // visibility: (connecting || authorizing) ? 'visible' : 'hidden'
-      }}>
-        {/* {connecting && <p>Connect To Metamask</p>} */}
-        {/* {authorizing && <p>Sign Message to continue</p>} */}
-      </div>
     </MetaMaskContext.Provider>
   )
 }

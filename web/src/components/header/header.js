@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
-
 import { useMetaMask } from "../../providers/MetaMaskProvider";
 
-//#38B6FF
 import './header.scss'
 import logo from './../../assets/dd-logo.svg'
 
 const Header = () => {
-  const { status, account, connect } = useMetaMask()
+  const { status, address, connect } = useMetaMask()
 
   return (
     <div className='header'>
@@ -19,12 +17,31 @@ const Header = () => {
       </Link>
 
       <div className='tabs'>
-        <a href='https://github.com/ClockworkOrange605/build-quest/blob/main/README.md' className='link' target='_blank'>Docs</a>
         <Link to='/collections' className='link'>Collections</Link>
-        <Link to='/create-collection' className='create'>Create Collection</Link>
-        {!account ?
-          <button className='wallet' onClick={connect}>Connect Wallet</button> :
-          <div className='eth-address'>{account}</div>
+        {/* <a href='https://github.com/ClockworkOrange605/build-quest/blob/main/README.md' className='link' target='_blank'>Docs</a> */}
+
+        {address &&
+          <Link to='/create-collection' className='create'>Create Collection</Link>
+        }
+
+        {address &&
+          <div className='eth-address'>{address}</div>
+        }
+
+        {!address && status === 'unavailable' &&
+          <button className='wallet'>Metamask Required</button>
+        }
+
+        {!address && status === 'initializing' &&
+          <button className='wallet'>initializing ... </button>
+        }
+
+        {!address && status === 'connecting' &&
+          <button className='wallet'>Connecting ...</button>
+        }
+
+        {!address && status === 'notConnected' &&
+          <button className='wallet' onClick={connect}>Connect Wallet</button>
         }
       </div>
     </div>
@@ -32,4 +49,3 @@ const Header = () => {
 }
 
 export default Header
-export { Header }

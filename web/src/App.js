@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom"
 import MetaMaskProvider, { useMetaMask } from "./providers/MetaMaskProvider"
 import AuthProvider, { useAuth } from "./providers/AuthProvider"
 
-import { Header } from "./components/header/header"
+import Header from "./components/header/header"
 
 import { Homepage } from "./pages/homepage/homepage"
 import { Collections } from "./pages/collections/collections"
@@ -47,7 +47,7 @@ const App = () => {
 }
 
 const RequireAuth = ({ children }) => {
-  const { account: address, connect, rpc: ethereum } = useMetaMask()
+  const { address, ethereum, connect } = useMetaMask()
   const { account, check, auth, setConnecting, setAuthorizing } = useAuth()
 
   useEffect(() => {

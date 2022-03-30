@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useAuth } from "../../providers/AuthProvider"
 import { useMetaMask } from "../../providers/MetaMaskProvider"
 
 import CollectionDetails from "./steps/collection-details"
@@ -9,9 +8,9 @@ import CollectionMetadata from "./steps/collection-metadata"
 import SaleDetails from "./steps/sale-details"
 
 const CreateCollection = () => {
-  const navigate = useNavigate();
-  const { account: address } = useAuth()
-  const { account, rpc } = useMetaMask()
+  const navigate = useNavigate()
+
+  const { address, ethereum } = useMetaMask()
 
   const [currentStep, setCurrentStep] = useState(1)
 
@@ -49,11 +48,11 @@ const CreateCollection = () => {
     )
     const { tx: txData } = await response.json()
 
-    const txHash = await rpc.request({
+    const txHash = await ethereum.request({
       method: "eth_sendTransaction",
       params: [
         {
-          from: account,
+          from: address,
           data: txData,
         },
       ]
