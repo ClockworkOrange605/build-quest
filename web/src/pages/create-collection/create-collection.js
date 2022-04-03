@@ -31,6 +31,21 @@ const CreateCollection = () => {
     return id
   }
 
+  const updateCollection = async (collectionId, txHash) => {
+    const token = sessionStorage.getItem(address)
+    const response = await fetch(
+      `/account/${address}/collections/${collectionId}/update`,
+      {
+        headers: { 'Content-type': 'application/json', 'x-auth-token': token },
+        method: 'POST',
+        body: JSON.stringify({
+          txHash
+        })
+      }
+    )
+    console.log(await response.json())
+  }
+
   const deployCollection = async (collectionId) => {
     const token = sessionStorage.getItem(address)
     const response = await fetch(
@@ -61,11 +76,6 @@ const CreateCollection = () => {
     return txHash
   }
 
-  const updateCollection = async (txHash) => {
-    // update Collection Tx
-    console.log(txHash)
-  }
-
   const nextStep = () =>
     setCurrentStep(currentStep + 1)
 
@@ -81,7 +91,7 @@ const CreateCollection = () => {
   const submit = async () => {
     const id = await saveCollection()
     const tx = await deployCollection(id)
-    await updateCollection(tx)
+    await updateCollection(id, tx)
 
     navigate(`/collection/${id}`)
   }

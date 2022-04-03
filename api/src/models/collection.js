@@ -1,44 +1,29 @@
-import { dbs as config } from '../configs/app.js'
+import { db } from '../db.js'
+import { ObjectId } from 'mongodb'
 
-import { MongoClient, ObjectId } from 'mongodb'
-
-const client = new MongoClient(config.mongo.uri)
-const collection = client.db('drops')
-  .collection('collections')
+const collection = db.collection('collections')
 
 const create =
   async (data) => {
-    await client.connect()
     const query = await collection.insertOne(data)
-    await client.close()
     return query.insertedId.toString()
   }
 
 const update =
   async (id, data) => {
-    await client.connect()
     const query = await collection.updateOne(
       { _id: ObjectId(id) },
       { $set: { ...data } }
     )
-    await client.close()
     return query.acknowledged
   }
 
 const findByID =
-  async (id) => {
-    await client.connect()
-    const query = await collection.findOne(ObjectId(id))
-    await client.close()
-    return query
-  }
+  async (id) =>
+    await collection.findOne(ObjectId(id))
 
 const findByAddress =
-  async (address) => {
-    await client.connect()
-    const collections = await collection.find({ address }).toArray()
-    await client.close()
-    return collections
-  }
+  async (address) =>
+    await collection.find({ address }).toArray()
 
 export { create, update, findByID, findByAddress }

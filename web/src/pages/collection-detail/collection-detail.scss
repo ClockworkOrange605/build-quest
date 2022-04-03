@@ -1,63 +1,70 @@
-.collection{
+.collection {
   padding: 50px 10% 0 10%;
   // width: 80%;
 
-  .title{
+  .title {
     font-size: 30px;
     margin-bottom: 25px;
   }
 
-  .center{
+  .center {
     height: 60vh;
     display: flex;
     gap: 5vw;
     width: 100%;
 
-    .left{
+    .left {
       width: 30%;
       height: 100%;
 
-      .image{
+      .image {
         margin-bottom: 25px;
-        img{
+
+        img {
           width: 100%;
           height: 100%;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         }
       }
 
-      .description{
+      .description {
         font-size: 18px;
         color: rgb(131, 131, 131);
       }
     }
 
-    .right{
+    .right {
       background-color: #0047AB;
       width: 70%;
       color: white;
       border-radius: 15px;
       padding: 3vw;
+      height: 100%;
 
-      .current-price{
+      .current-price {
         font-size: 26px;
         margin-bottom: 30px;
+        // max-width: 88px;
+        // overflow: hidden;
+        // white-space: nowrap;
+        // text-overflow: ellipsis;
       }
 
-      .mint-btn{
+      .mint-btn {
         background-color: #FFF;
         border: none;
         padding: 15px 10px;
         border-radius: 10px;
         font-size: 20px;
         cursor: pointer;
+        margin: 0 0 15px 0;
       }
 
-      .mint-btn:hover{
+      .mint-btn:hover {
         background-color: rgb(224, 224, 224);
       }
 
-      .graph{
+      .graph {
         max-width: 100%;
         margin-top: 40px;
       }

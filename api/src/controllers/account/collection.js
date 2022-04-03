@@ -21,6 +21,28 @@ const createCollection =
     }
   }
 
+const updateCollection =
+  async (req, res, next) => {
+    const { account } = res.locals
+    const { id } = req.params
+    const { txHash } = req.body
+
+    try {
+      const collection = await findByID(id)
+
+      if (collection?.address === account) {
+        const status = await update(id, { contract: { ...collection.contract, tx: txHash } })
+
+        res.send({ debug: true, status })
+      }
+      else
+        res.status(403).send({ error: '403 Forbidden' })
+    }
+    catch (err) {
+      next(err)
+    }
+  }
+
 const deployCollection =
   async (req, res, next) => {
     const { account } = res.locals
@@ -81,5 +103,6 @@ export {
   getCollection,
   getCollections,
   createCollection,
+  updateCollection,
   deployCollection
 }
