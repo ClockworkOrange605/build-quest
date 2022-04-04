@@ -1,8 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import InputAdornment from "@mui/material/InputAdornment"
+import TextField from "@mui/material/TextField"
+import Button from "@mui/material/Button"
+import Input from "@mui/material/Input"
+import InputLabel from "@mui/material/InputLabel"
+
+import { ProjectCard } from "./../../../components/project-card/project-card"
 
 import TwitterIcon from "@mui/icons-material/Twitter"
 import { SvgIcon } from "@mui/material";
@@ -12,28 +16,25 @@ import "./collection-details.scss";
 
 export class CollectionDetails extends Component {
   render() {
-    const { values, handleChange, nextStep } = this.props
+    const { values, handleChange, uploadFile, nextStep } = this.props
 
-    const formComplete = !!(
-      values.name &&
-      values.symbol &&
-      values.logo &&
-      values.header &&
-      values.description
-    )
+    const formComplete = !!(values.name && values.symbol && values.description)
 
     return (
       <div className="bg">
         <div className="form">
-          <div className="img-left">
-            <div className="step-index white">1/3</div>
-            <img src={formImg} className="form-img"></img>
+          <div className="img-left card-step">
+            <div className="step-index">1/3</div>
+            <ProjectCard
+              projectInfo={values}
+            />
           </div>
 
           <div className="right">
             <h1 className="title-extra-bold">Collection Details</h1>
             <div className="first">
               <TextField
+                required
                 variant="outlined"
                 label="Collection Name"
                 onChange={handleChange("name")}
@@ -41,6 +42,7 @@ export class CollectionDetails extends Component {
                 className="name"
               />
               <TextField
+                required
                 variant="outlined"
                 label="Symbol"
                 onChange={handleChange("symbol")}
@@ -48,32 +50,37 @@ export class CollectionDetails extends Component {
                 className="symbol"
               />
             </div>
-            <div className="second">
-              <TextField
-                variant="outlined"
-                label="Collection Logo URL"
-                onChange={handleChange("logo")}
-                defaultValue={values.logo}
-                className='input-field'
-              />
-              <TextField
-                variant="outlined"
-                label="Collection Header URL"
-                onChange={handleChange("header")}
-                defaultValue={values.header}
-                className='input-field'
-              />
-            </div>
             <TextField
+              required
               variant="outlined"
-              label="Description"
+              label="Collection Description"
               multiline
               rows={2}
               onChange={handleChange("description")}
               defaultValue={values.description}
               className="description"
             />
-            <div className="forth">
+            <div className="second">
+              <InputLabel>Logo</InputLabel>
+              <Input
+                type="file"
+                accept="image/*"
+                label="Logo"
+                name="logo"
+                onChange={uploadFile}
+              />
+            </div>
+            <div className="second">
+              <InputLabel>Header</InputLabel>
+              <Input
+                type="file"
+                accept="image/*"
+                label="Header"
+                name="header"
+                onChange={uploadFile}
+              />
+            </div>
+            {/* <div className="forth">
               <TextField
                 variant="outlined"
                 onChange={handleChange("twitter")}
@@ -105,14 +112,14 @@ export class CollectionDetails extends Component {
                   ),
                 }}
               />
-            </div>
-            <TextField
+            </div> */}
+            {/* <TextField
               variant="outlined"
               label="Website"
               onChange={handleChange("website")}
               defaultValue={values.website}
               className="website"
-            />
+            /> */}
             <div className="btn-container">
               <Button
                 className="next"

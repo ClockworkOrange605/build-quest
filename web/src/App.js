@@ -32,7 +32,7 @@ const App = () => {
               />
               <Route
                 path="/collection/:id"
-                element={<RequireAuth><CollectionDetail /></RequireAuth>}
+                element={<CollectionDetail />}
               />
               <Route
                 path="/create-collection"

@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom"
 
 import { useMetaMask } from '../../providers/MetaMaskProvider'
 
+import { ProjectCard } from "./../../components/project-card/project-card"
+
 import * as echarts from 'echarts'
 import './collection-detail.scss'
 
@@ -60,12 +62,9 @@ export function CollectionDetail() {
 
           <div className='center'>
             <div className='left'>
-              <div className='title title-extra-bold'>{data.name}</div>
-              <div className='image'>
-                {/* <img src={info.logo} /> */}
-              </div>
-              {/* <div className='description'>{data.contract}</div> */}
-              <div className='description'>{data.description}</div>
+              <ProjectCard
+                projectInfo={data}
+              />
             </div>
             <div className='right'>
               <div className='current-price title-regular'>Current Price {data?.contract?.currentPrice || '-'} ETH</div>

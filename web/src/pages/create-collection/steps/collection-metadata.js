@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 import { ProjectCard } from "./../../../components/project-card/project-card";
 
 // import TextField from "@mui/material/TextField";
@@ -11,24 +14,22 @@ export class CollectionMetadata extends Component {
   render() {
     const { values, handleChange, prevStep, nextStep } = this.props
 
-    const sampleData = {
-      ...values,
-      logo: "https://drive.google.com/uc?id=1R4_xVHLZrrPHnHQvtQ7Uw13y88vsGmbS",
-      header: "https://drive.google.com/uc?id=1R4_IsUYIaKvn6Z7M_Xk-_kkZPHdiCkck",
-    }
-
     return (
       <div className="bg">
         <div className="form">
           <div className="img-left card-step">
             <div className="step-index">2/3</div>
             <ProjectCard
-              projectInfo={sampleData}
+              projectInfo={values}
             />
           </div>
           <div className="right">
-            <h1 className="title-extra-bold">Collection Data</h1>
-            <div className="row metadata">
+            <h1 className="title-extra-bold">Collection Tokens</h1>
+            <Alert severity="warning">
+              <AlertTitle>Warning</AlertTitle>
+              Tokens uploading not working in this demo
+            </Alert>
+            <div className="metadata">
               <h3>Upload Metadata:</h3>
               <input
                 // onChange={handleChange("metadata")}

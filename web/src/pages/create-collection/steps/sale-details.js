@@ -14,25 +14,37 @@ export class SaleDetails extends Component {
 
     const formComplete = !!(values.startingPrice && values.targetBlocksPerSale)
 
-    const sampleData = {
-      ...values,
-      logo: "https://drive.google.com/uc?id=1R4_xVHLZrrPHnHQvtQ7Uw13y88vsGmbS",
-      header: "https://drive.google.com/uc?id=1R4_IsUYIaKvn6Z7M_Xk-_kkZPHdiCkck",
-    }
-
     return (
       <div className="bg">
         <div className="form">
           <div className="img-left card-step">
             <div className="step-index">3/3</div>
             <ProjectCard
-              projectInfo={sampleData}
+              projectInfo={values}
             />
           </div>
           <div className="right">
-            <h1 className="title-extra-bold">Sale Details</h1>
+            <h1 className="title-extra-bold">Contract Details</h1>
             <div className="first">
               <TextField
+                required disabled
+                variant="outlined"
+                label="Collection Name"
+                defaultValue={values.name}
+                className="name"
+              />
+              <TextField
+                required disabled
+                variant="outlined"
+                label="Symbol"
+                defaultValue={values.symbol}
+                className="symbol"
+              />
+            </div>
+            {/* <hr /> */}
+            <div className="second">
+              <TextField
+                required
                 variant="outlined"
                 label="Starting Price"
                 onChange={handleChange("startingPrice")}
@@ -43,6 +55,24 @@ export class SaleDetails extends Component {
                       Ξ
                     </InputAdornment>
                   ),
+                }}
+              />
+              <TextField
+                required
+                variant="outlined"
+                label="Expected Blocks Between Mints"
+                onChange={handleChange("targetBlocksPerSale")}
+                defaultValue={values.targetBlocksPerSale}
+                type="number"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {
+                        values.targetBlocksPerSale &&
+                        `~ ${values.targetBlocksPerSale * 0.25} minutes`
+                      }
+                    </InputAdornment>
+                  )
                 }}
               />
             </div>
@@ -69,20 +99,6 @@ export class SaleDetails extends Component {
                 ),
               }}
             /> */}
-            <TextField
-              variant="outlined"
-              label="Expected Blocks Between Mints"
-              onChange={handleChange("targetBlocksPerSale")}
-              defaultValue={values.targetBlocksPerSale}
-              type="number"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    ~ {values.targetBlocksPerSale * 0.25} minutes
-                  </InputAdornment>
-                )
-              }}
-            />
             <div className="btns">
               <Button variant="outlined" onClick={prevStep}>
                 Back

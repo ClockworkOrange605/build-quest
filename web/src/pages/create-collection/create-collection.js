@@ -76,6 +76,18 @@ const CreateCollection = () => {
     return txHash
   }
 
+  const uploadFile = async (event) => {
+    console.log(event)
+    const response = await fetch('/utils/upload', {
+      method: 'POST',
+      body: event.target.files[0]
+    })
+
+    const { file } = await response.json()
+
+    handleChange(event.target.name)({ target: { value: file } })
+  }
+
   const nextStep = () =>
     setCurrentStep(currentStep + 1)
 
@@ -103,6 +115,7 @@ const CreateCollection = () => {
           <CollectionDetails
             values={collectionData}
             handleChange={handleChange}
+            uploadFile={uploadFile}
             nextStep={nextStep}
           />
         )
