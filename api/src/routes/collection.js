@@ -8,6 +8,6 @@ const router = new Router()
 router.get('/', list)
 router.get('/:id', show)
 router.get('/:id/stats', stats)
-router.post('/:id/mint', mint)
+router.post('/:id/mint/:account', mint)
 
 export default router

@@ -55,7 +55,7 @@ const getContactDeployTransaction = (contract, args) => {
   return transaction
 }
 
-const getContractMintTransaction = async (contract, address, token) => {
+const getContractMintTransaction = async (contract, address, token, account) => {
   const { abi, bytecode } =
     JSON.parse(
       fs.readFileSync(`/storage/app/contracts/${contract}.json`)
@@ -70,7 +70,7 @@ const getContractMintTransaction = async (contract, address, token) => {
     contractInstance.methods.mint(token).encodeABI()
 
   const transactionGas = await
-    contractInstance.methods.mint(token).estimateGas({ from: '0x46d8d46aa014e7c4a2d99b68f51f86140a307459', value: price })
+    contractInstance.methods.mint(token).estimateGas({ from: account, value: price })
 
   console.log(price, transactionGas)
 

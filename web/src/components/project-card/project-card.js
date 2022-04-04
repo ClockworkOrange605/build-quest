@@ -5,7 +5,7 @@ import image from './../../assets/drop.png'
 
 export function ProjectCard({ projectInfo }) {
   return (
-    <Link to={`/collection/${projectInfo?.id}`}>
+    <Link to={projectInfo?.id ? `/collection/${projectInfo?.id}` : '#'}>
       <div className='card'>
         <div className='header-img'>
           {projectInfo?.header &&

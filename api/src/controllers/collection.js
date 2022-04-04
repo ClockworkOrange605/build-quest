@@ -62,7 +62,7 @@ const stats =
 
 const mint =
   async (req, res, next) => {
-    const { id } = req.params
+    const { id, account } = req.params
 
     try {
       const collection = await findByID(id)
@@ -73,7 +73,7 @@ const mint =
       const contract = collection.contract.address
       const token = 'test'
 
-      const { transaction, gas, price } = await getContractMintTransaction(collection.contract.source, contract, token)
+      const { transaction, gas, price } = await getContractMintTransaction(collection.contract.source, contract, token, account)
 
       res.send({ debug: true, price, gas, txData: transaction })
     } catch (err) {

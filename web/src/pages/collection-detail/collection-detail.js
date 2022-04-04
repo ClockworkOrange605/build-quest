@@ -37,7 +37,7 @@ export function CollectionDetail() {
   }, [id])
 
   const mintToken = async () => {
-    const response = await fetch(`/collections/${id}/mint`, { method: 'POST' })
+    const response = await fetch(`/collections/${id}/mint/${address}`, { method: 'POST' })
     const { txData, gas, price } = await response.json()
 
     const txHash = await ethereum.request({
