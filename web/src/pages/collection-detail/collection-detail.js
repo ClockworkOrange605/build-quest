@@ -23,6 +23,7 @@ export function CollectionDetail() {
     }
 
     fetchCollection(id)
+    setInterval(() => fetchCollection(id), 15000)
   }, [id])
 
   useEffect(() => {
@@ -30,10 +31,10 @@ export function CollectionDetail() {
       const response = await fetch(`/collections/${id}/stats`)
       const data = await response.json()
       setStats(data)
-      console.log(data)
     }
 
     getStats(id)
+    setInterval(() => getStats(id), 15000)
   }, [id])
 
   const mintToken = async () => {
@@ -87,7 +88,7 @@ function Graph({ stats }) {
     const chart = echarts
       .init(chartRef.current, 'dark')
     setChartInstnce(chart)
-  })
+  }, [])
 
   useLayoutEffect(() => {
     window.addEventListener('resize', () => { chartInstance?.resize() })
@@ -112,7 +113,6 @@ function Graph({ stats }) {
             }
           ]
         })
-      console.log(stats)
     }
   }, [chartInstance, stats])
 
